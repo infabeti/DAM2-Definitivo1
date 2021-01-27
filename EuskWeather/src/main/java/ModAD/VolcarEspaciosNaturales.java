@@ -1,25 +1,10 @@
 package ModAD;
 
-import java.text.DecimalFormat;
-import java.text.ParseException;
 import java.util.ArrayList;
 
 import org.hibernate.Session;
 
 public class VolcarEspaciosNaturales {
-
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-		String xml = convertirJSONXML.leerArchivo("./ficherosXML//espacios-naturales.xml", "utf-8"); 
-		
-
-		ArrayList<EspacioNatural> espaciosNaturales = lecturaDatos(xml);
-//		for(EspacioNatural en: espaciosNaturales) {
-//			System.out.println(en.getTipo());
-//		}
-
-		volcarInformacion(espaciosNaturales);
-	}
 	
 	public static ArrayList<EspacioNatural> lecturaDatos(String archivo) {
 		EspacioNatural[] espaciosNaturalesObj;

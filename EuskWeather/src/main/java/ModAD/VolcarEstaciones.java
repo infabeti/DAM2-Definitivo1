@@ -7,18 +7,6 @@ import java.util.ArrayList;
 import org.hibernate.Session;
 
 public class VolcarEstaciones {
-
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-		String xml = convertirJSONXML.leerArchivo("./ficherosXML//estaciones.xml", "utf-8"); 
-	
-		ArrayList<EstacionMeteorologica> estaciones = lecturaDatos(xml);
-//		for(EstacionMeteorologica e: estaciones) {
-//			System.out.println(e.getDireccion());
-//		}
-
-		volcarInformacion(estaciones);
-	}
 	
 	public static ArrayList<EstacionMeteorologica> lecturaDatos(String archivo) {
 		EstacionMeteorologica[] estacionesObj;
@@ -128,7 +116,6 @@ public class VolcarEstaciones {
 			session.close();
 			
 		}
-		HibernateUtil.shutdown();
 	}
 
 }

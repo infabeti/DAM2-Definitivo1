@@ -1,31 +1,10 @@
 package ModAD;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.Reader;
-import java.nio.charset.Charset;
 import java.util.ArrayList;
 
 import org.hibernate.Session;
 
 public class VolcarMunicipios {
-
-		public static void main(String[] args) {
-			
-			String xml = convertirJSONXML.leerArchivo("./ficherosXML//municipios.xml", "utf-8"); 
-			
-
-			ArrayList<Municipios> municipios = lecturaDatos(xml);
-//			for(Municipios m: municipios) {
-//				System.out.println(m.getNombreMuni());
-//			}
-
-			volcarInformacion(municipios);
-			
-		}
 
 		public static ArrayList<Municipios> lecturaDatos(String archivo) {
 			Municipios[] munisObj;
@@ -106,6 +85,5 @@ public class VolcarMunicipios {
 				session.close();
 				
 			}
-			HibernateUtil.shutdown();
 		}
 }
