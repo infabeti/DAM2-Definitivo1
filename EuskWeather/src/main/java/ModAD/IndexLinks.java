@@ -1,9 +1,27 @@
 package ModAD;
 
-public class IndexLinks {
+import java.io.Serializable;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
+
+@Entity
+@Table(name = "indexlinks", uniqueConstraints = {@UniqueConstraint(columnNames = "idIndex"),@UniqueConstraint(columnNames = "nombreEst"),
+		@UniqueConstraint(columnNames = "enlace")})
+
+public class IndexLinks implements Serializable{
+
+	@Id
+	@Column(name = "idIndex", unique = true, nullable = false)
 	private int idIndex;
+	
+	@Column(name = "nombreEst", unique = true, nullable = false)
 	private String nombreMuni;
+	
+	@Column(name = "enlace", unique = true, nullable = false)
 	private String enlace;
 	
 	public IndexLinks() {

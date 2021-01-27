@@ -41,7 +41,7 @@ public class guardarJson {
 				// Se obtiene el inputStream de la foto web y se abre el fichero
 				// local.
 				InputStream is = urlCon.getInputStream();
-				FileOutputStream fos = new FileOutputStream("./ficheros//" + i + ".json");
+				FileOutputStream fos = new FileOutputStream("./ficheros//" + arrayNombres.get(i) + ".json");
 
 				// Lectura de la foto de la web y escritura en fichero local
 				byte[] array = new byte[1000]; // buffer temporal de lectura.
