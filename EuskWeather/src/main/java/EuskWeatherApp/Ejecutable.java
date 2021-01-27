@@ -7,6 +7,7 @@ import java.util.ArrayList;
 
 import org.json.JSONObject;
 
+import ModAD.DescargarIndex;
 import ModAD.DescargarPrincipales;
 import ModAD.EspacioNatural;
 import ModAD.EstacionMeteorologica;
@@ -56,6 +57,10 @@ public class Ejecutable {
 			//FIN CONVERSION JSON-->XML
     		System.out.println("Archivo " + nombreArchivos[i] + ".json convertido a " + nombreArchivos[i] + ".xml correctamente");
     	}
+    	
+    	//DESCARGAR INFORMACION METEOROLOGICA DEL INDEX.XML
+    	String xml = convertirJSONXML.leerArchivo("./ficherosXML//index.xml", "utf-8"); 
+    	DescargarIndex.procesarDatosAtmosfericos(xml);
     	
     	//VOLCAR INFORMACION A LA BD CON HIBERNATE
     	
