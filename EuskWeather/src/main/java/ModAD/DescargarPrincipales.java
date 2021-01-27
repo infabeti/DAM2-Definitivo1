@@ -17,13 +17,6 @@ import javax.net.ssl.X509TrustManager;
 
 public class DescargarPrincipales {
 	
-		public static void main(String[] args) {	
-			descargarFicheros("https://opendata.euskadi.eus/contenidos/ds_informes_estudios/calidad_aire_2020/es_def/adjuntos/index.json", "./archJSON//index.json");
-			descargarFicheros("https://opendata.euskadi.eus/contenidos/ds_informes_estudios/calidad_aire_2020/es_def/adjuntos/estaciones.json", "./archJSON//estaciones.json");
-			descargarFicheros("https://opendata.euskadi.eus/contenidos/ds_recursos_turisticos/playas_de_euskadi/opendata/espacios-naturales.json", "./archJSON//espacios-naturales.json");
-			descargarFicheros("https://opendata.euskadi.eus/contenidos/ds_registros/registro_entidades_locales/opendata/entidades.json", "./archJSON//municipios.json");
-		}
-	
 		private static void trustEveryone() {
 			try {
 				HttpsURLConnection.setDefaultHostnameVerifier(new HostnameVerifier() {
