@@ -11,9 +11,11 @@ import ModAD.DescargarIndex;
 import ModAD.DescargarPrincipales;
 import ModAD.EspacioNatural;
 import ModAD.EstacionMeteorologica;
+import ModAD.InfoMeteorologica;
 import ModAD.Municipios;
 import ModAD.VolcarEspaciosNaturales;
 import ModAD.VolcarEstaciones;
+import ModAD.VolcarInfoMeteorologica;
 import ModAD.VolcarMunicipios;
 import ModAD.convertirJSONXML;
 
@@ -78,6 +80,12 @@ public class Ejecutable {
     	String xmlEspaciosNaturales = convertirJSONXML.leerArchivo("./ficherosXML//espacios-naturales.xml", "utf-8");
     	ArrayList<EspacioNatural> espaciosNaturales = VolcarEspaciosNaturales.lecturaDatos(xmlEspaciosNaturales);
     	VolcarEspaciosNaturales.volcarInformacion(espaciosNaturales);
+    	
+    	//INFORMACION METEOROLOGICA
+		ArrayList<InfoMeteorologica> listadoInfoMeteorologica = new ArrayList<InfoMeteorologica>();
+		listadoInfoMeteorologica = VolcarInfoMeteorologica.lecturaDatos();
+		VolcarInfoMeteorologica.volcarInformacion(listadoInfoMeteorologica);
+		
 	}
 
 }

@@ -29,9 +29,8 @@ create table EstacionMeteorologica
     constraint fk_nomMunicipio foreign key(nomMunicipio) references Municipios(nombreMuni) on update cascade on delete cascade);
 
 create table InformacionMeteorologica
-	(idInfo int, fechaInfo Date primary key,
-    presionAtm double not null, temperatura double not null,
-    saturacionO2 int not null, nomEstMet varchar(40) not null,
+	(idInfo int primary key, fechaInfo varchar(40), hora varchar(40), presionAtm varchar(40), temperatura varchar(40),
+    saturacionO2 int, calidadAire varchar(50), nomEstMet varchar(40) not null,
     constraint fk_nomEstMet foreign key(nomEstMet) references EstacionMeteorologica(nombreEstacion) on update cascade on delete cascade);
 
 create table EspaciosNaturales

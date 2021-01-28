@@ -8,6 +8,12 @@ import org.hibernate.Session;
 
 public class VolcarEstaciones {
 	
+	public static void main(String[] args) {
+		String xml = convertirJSONXML.leerArchivo("./ficherosXML//estaciones.xml", "utf-8");
+		lecturaDatos(xml);
+	}
+	
+	
 	public static ArrayList<EstacionMeteorologica> lecturaDatos(String archivo) {
 		EstacionMeteorologica[] estacionesObj;
 		ArrayList<EstacionMeteorologica> listaEstaciones = new ArrayList<EstacionMeteorologica>();
@@ -16,7 +22,7 @@ public class VolcarEstaciones {
 		double[] lati = null, longi = null;
 
 		estaciones = archivo.split("</estacion>");
-
+		System.out.println(estaciones.length);
 		nombreEst = new String[estaciones.length - 1];
 		direccEst = new String[estaciones.length -1];
 		nombreMuni = new String[estaciones.length -1];
