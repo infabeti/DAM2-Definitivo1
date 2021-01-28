@@ -8,7 +8,7 @@ import org.hibernate.Session;
 
 public class VolcarInfoMeteorologica {
 
-	public static void main(String[] args) {
+	public void volcarInfoMeteorologica() {
 		// TODO Auto-generated method stub
 		String xml = convertirJSONXML.leerArchivo("./ficherosXML//index.xml", "utf-8");
 		String[] nombresMunicipios = obtenerNombreMunicipios(xml);

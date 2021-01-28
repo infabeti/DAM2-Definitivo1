@@ -8,13 +8,11 @@ import java.util.ArrayList;
 import org.hibernate.Session;
 import org.json.JSONObject;
 
+import ContAD.ControladorPrincipal;
+import VistaAD.vistaActualizarBBDD;
+
 public class DescargarIndex {
-	
-	public static void main(String[] args) throws IOException {
-		String xml = convertirJSONXML.leerArchivo("./ficherosXML//index.xml", "utf-8"); 
-		procesarDatosAtmosfericos(xml);
-	}
-	
+
 	public static void procesarDatosAtmosfericos(String archivo) throws IOException {
 		String nomMuni = "";
 		String[] index, nodos, nombreMuni = null;
