@@ -8,10 +8,10 @@ import org.hibernate.Session;
 
 public class VolcarEstaciones {
 	
-	public static void main(String[] args) {
-		String xml = convertirJSONXML.leerArchivo("./ficherosXML//estaciones.xml", "utf-8");
-		lecturaDatos(xml);
-	}
+//	public static void main(String[] args) {
+//		String xml = convertirJSONXML.leerArchivo("./ficherosXML//estaciones.xml", "utf-8");
+//		lecturaDatos(xml);
+//	}
 	
 	
 	public static ArrayList<EstacionMeteorologica> lecturaDatos(String archivo) {

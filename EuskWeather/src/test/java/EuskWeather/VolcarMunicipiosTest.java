@@ -24,4 +24,10 @@ public class VolcarMunicipiosTest {
 		assertEquals(resultado.get(0).getNombreMuni(), resultadoEsperado.get(0).getNombreMuni());
 	}
 
+	@Test
+	public void testVolcarInformacion() {
+		ArrayList<Municipios> objeto = new ArrayList<Municipios>();
+		vm.volcarInformacion(objeto);
+	}
+	
 }
