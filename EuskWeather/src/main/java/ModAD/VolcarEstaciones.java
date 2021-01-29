@@ -22,7 +22,6 @@ public class VolcarEstaciones {
 		double[] lati = null, longi = null;
 
 		estaciones = archivo.split("</estacion>");
-		System.out.println(estaciones.length);
 		nombreEst = new String[estaciones.length - 1];
 		direccEst = new String[estaciones.length -1];
 		nombreMuni = new String[estaciones.length -1];
