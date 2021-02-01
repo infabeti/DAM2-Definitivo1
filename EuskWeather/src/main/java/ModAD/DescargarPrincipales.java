@@ -1,13 +1,19 @@
 package ModAD;
 
+import java.io.BufferedReader;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.net.URL;
 import java.net.URLConnection;
-
+import java.nio.charset.Charset;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
+import java.util.Scanner;
 
 import javax.net.ssl.HostnameVerifier;
 import javax.net.ssl.HttpsURLConnection;
@@ -16,6 +22,28 @@ import javax.net.ssl.SSLSession;
 import javax.net.ssl.X509TrustManager;
 
 public class DescargarPrincipales {
+	
+	public static void main(String[] args) {
+		String fichWeb = leerURL("https://opendata.euskadi.eus/contenidos/ds_informes_estudios/calidad_aire_2020/es_def/adjuntos/estaciones.json");
+		
+		String aux = convertirJSONXML.leerArchivo("./archJSON//estaciones.json", "Windows-1252");
+		String cifrado1 ="";
+		String h = "HOLA", h2 = "HOLA";
+		MessageDigest md;
+		try {
+			md = MessageDigest.getInstance("SHA");
+			byte dataBytes[] = fichWeb.getBytes();
+			md.update(dataBytes);
+			byte resumen[] = md.digest();
+			for(byte b: resumen) {
+				cifrado1 += String.format("%02x", b);
+			}
+		} catch (NoSuchAlgorithmException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}	
+		System.out.println(cifrado1);
+	}
 	
 		private static void trustEveryone() {
 			try {
@@ -64,5 +92,31 @@ public class DescargarPrincipales {
 	    	} catch (Exception e) {
 	    		e.printStackTrace();
 	    	}
-	    }    
+	    }
+	    
+	    public static String leerURL(String direccion) {
+	    	String cadena = "";
+	    	try {
+	    		trustEveryone();
+	    		URL url = new URL(direccion);
+	    		URLConnection urlCon = url.openConnection();
+	    		InputStream is = urlCon.getInputStream();	    		
+	    				
+	    		BufferedReader br = new BufferedReader(new InputStreamReader(url.openStream(), Charset.forName("Windows-1252")));
+	    		StringBuilder acum = new StringBuilder();
+	    		
+	    		int cont = 0;
+	    		while((cont = br.read()) != -1) {
+	    			char ch = (char) cont;
+	    			acum.append(ch);
+	    		}
+	    		cadena = acum.toString();
+	    		
+	    		is.close();
+	    	} catch (Exception e) {
+	    		e.printStackTrace();
+	    	}
+	    	
+	    	return cadena;
+	    }
 }
