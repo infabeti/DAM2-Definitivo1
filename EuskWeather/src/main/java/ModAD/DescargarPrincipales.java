@@ -58,7 +58,7 @@ public class DescargarPrincipales {
 //				System.out.println(nomFichero + " web: " + cifrado2);
 				File f = new File("./ficherosXML//" + nomFichero + ".xml");
 				if(cifrado1.contentEquals(cifrado2)) {
-					System.out.println("ESTA ACTUALIZADO");
+					System.out.println(nomFichero + ".json ESTA ACTUALIZADO");
 				} else {
 					f.delete();
 					System.out.println("HAY QUE ACTUALIZAR el fichero " + nomFichero);
