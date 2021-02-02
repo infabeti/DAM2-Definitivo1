@@ -13,7 +13,7 @@ import ModAD.convertirJSONXML;
 public class VolcarEspaciosNaturalesTest {
 
 	VolcarEspaciosNaturales ven = new VolcarEspaciosNaturales();
-	EspacioNatural en = new EspacioNatural(1, "Embalse de Ullíbarri-Gamboa", "Emplazado en el municipio alavés de Arrazua-Ubarrundia, el embalse de Ull&amp;iacute...", "Pantanos");
+	EspacioNatural en = new EspacioNatural(1, "Embalse de Ullíbarri-Gamboa", "Emplazado en el municipio alavés de Arrazua-Ubarrundia, el embalse de Ull&amp;iacute...", "Pantanos", "Getxo");
 	
 	@Test
 	public void test() {
