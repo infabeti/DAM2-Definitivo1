@@ -116,7 +116,8 @@ public class VolcarEstaciones {
 		for (int i = 0; i < objetos.size(); i++) {
 			Session session = HibernateUtil.getSessionFactory().openSession();
 			session.beginTransaction();
-			session.save(objetos.get(i));
+			//session.save(objetos.get(i));
+			session.saveOrUpdate(objetos.get(i));
 			session.getTransaction().commit();
 			session.close();
 			

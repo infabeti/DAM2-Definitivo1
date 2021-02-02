@@ -1,6 +1,7 @@
 package ModAD;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.InputStream;
@@ -23,26 +24,56 @@ import javax.net.ssl.X509TrustManager;
 
 public class DescargarPrincipales {
 	
-	public static void main(String[] args) {
-		String fichWeb = leerURL("https://opendata.euskadi.eus/contenidos/ds_informes_estudios/calidad_aire_2020/es_def/adjuntos/estaciones.json");
+	public void verificarInformacion(String nomFichero) {
 		
-		String aux = convertirJSONXML.leerArchivo("./archJSON//estaciones.json", "Windows-1252");
-		String cifrado1 ="";
-		String h = "HOLA", h2 = "HOLA";
-		MessageDigest md;
-		try {
-			md = MessageDigest.getInstance("SHA");
-			byte dataBytes[] = fichWeb.getBytes();
-			md.update(dataBytes);
-			byte resumen[] = md.digest();
-			for(byte b: resumen) {
-				cifrado1 += String.format("%02x", b);
+			String fichWeb = "";
+			if(nomFichero.equals("index") || nomFichero.equals("estaciones")) {
+				 fichWeb = leerURL("https://opendata.euskadi.eus/contenidos/ds_informes_estudios/calidad_aire_2020/es_def/adjuntos/" + nomFichero + ".json");
+			} else if(nomFichero.equals("espacios-naturales")) {
+				fichWeb = leerURL("https://opendata.euskadi.eus/contenidos/ds_recursos_turisticos/playas_de_euskadi/opendata/" + nomFichero + ".json");
+			} else if(nomFichero.equals("municipios")) {
+				fichWeb = leerURL("https://opendata.euskadi.eus/contenidos/ds_registros/registro_entidades_locales/opendata/entidades.json");
 			}
-		} catch (NoSuchAlgorithmException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}	
-		System.out.println(cifrado1);
+			
+			String aux = convertirJSONXML.leerArchivo("./archJSON//" + nomFichero + ".json", "Windows-1252");
+
+			MessageDigest md;
+			String cifrado1 = "", cifrado2 = "";
+			try {
+				md = MessageDigest.getInstance("SHA");
+				byte dataBytes[] = aux.getBytes();
+				md.update(dataBytes);
+				byte resumen[] = md.digest();
+				for(byte b: resumen) {
+					cifrado1 += String.format("%02x", b);
+				}
+				
+				byte dataWeb[] = fichWeb.getBytes();
+				md.update(dataWeb);
+				byte resumenWeb[] = md.digest();
+				for(byte b: resumenWeb) {
+					cifrado2 += String.format("%02x", b);
+				}
+//				System.out.println(nomFichero + " local: " + cifrado1);
+//				System.out.println(nomFichero + " web: " + cifrado2);
+				File f = new File("./ficherosXML//" + nomFichero + ".xml");
+				if(cifrado1.contentEquals(cifrado2)) {
+					System.out.println("ESTA ACTUALIZADO");
+				} else {
+					f.delete();
+					System.out.println("HAY QUE ACTUALIZAR el fichero " + nomFichero);
+					if(nomFichero.equals("index") || nomFichero.equals("estaciones")) {
+						 descargarFicheros("https://opendata.euskadi.eus/contenidos/ds_informes_estudios/calidad_aire_2020/es_def/adjuntos/" + nomFichero + ".json", "./archJSON//" + nomFichero + ".json");
+					} else if(nomFichero.equals("espacios-naturales")) {
+						descargarFicheros("https://opendata.euskadi.eus/contenidos/ds_recursos_turisticos/playas_de_euskadi/opendata/" + nomFichero + ".json", "./archJSON//" + nomFichero + ".json");
+					} else if(nomFichero.equals("municipios")) {
+						descargarFicheros("https://opendata.euskadi.eus/contenidos/ds_registros/registro_entidades_locales/opendata/entidades.json", "./archJSON//" + nomFichero + ".json");
+					}
+				}
+			} catch (NoSuchAlgorithmException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}	
 	}
 	
 		private static void trustEveryone() {

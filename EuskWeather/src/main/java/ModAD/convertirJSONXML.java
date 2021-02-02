@@ -1,6 +1,7 @@
 package ModAD;
 
 import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -11,35 +12,40 @@ import org.json.JSONObject;
 
 public class convertirJSONXML {
 	
-		public void principal() throws IOException {
-		System.out.println("\nINICIADA CONVERSION A XML:\n");
+	public void principal() throws IOException {
 		String[] nombreArchivos = { "index", "estaciones", "espacios-naturales", "municipios" };
 	    String[] nomNodo = { "index", "estacion", "espacioNatural", "municipio" };
 	    String archivoJSON = "", archivoXML = "", archJson = "", archJsonSinCabecera = "", archJsonDefinitivo = "";
 	    String contXML = "";
 	    FileWriter ficheroXML = null;
+	    
     	for (int i = 0; i < nombreArchivos.length; i++) {
-    		archivoJSON = "./archJSON//" + nombreArchivos[i] + ".json";
-    		archivoXML = "./ficherosXML//" + nombreArchivos[i] + ".xml";
-    		
-    		//INICIO DE LA PREPARACION DE NUESTRO JSON
-    		archJson = leerArchivo(archivoJSON, "Windows-1252"); // Lee el archivo
-    		archJsonSinCabecera = repararJSONSinCabecera(archJson, nomNodo[i]);
-    		archJsonDefinitivo = distinguirEtiquetasRepes(archJsonSinCabecera);
-    		//AQUI YA TENDREMOS NUESTRO JSON PERTINENTE PREPARADO
-    		
-    		//INICIO DE LA CONVERSION JSON-->XML
-    		JSONObject objetoJson = new JSONObject(archJsonDefinitivo);
-    		contXML = "<?xml version=\"1.0\" encoding=\"UTF-8\"?><nodoRaiz>" + org.json.XML.toString(objetoJson) + "</nodoRaiz>";
+    		File f = new File("./ficherosXML//" + nombreArchivos[i] + ".xml");
+    		if(f.exists()) {
+    			System.out.println("YA ESTA EL XML ACTUALIZADO");
+    		} else {
+    			System.out.println("\nINICIADA CONVERSION A XML:\n");
+        		archivoJSON = "./archJSON//" + nombreArchivos[i] + ".json";
+        		archivoXML = "./ficherosXML//" + nombreArchivos[i] + ".xml";
+        		
+        		//INICIO DE LA PREPARACION DE NUESTRO JSON
+        		archJson = leerArchivo(archivoJSON, "Windows-1252"); // Lee el archivo
+        		archJsonSinCabecera = repararJSONSinCabecera(archJson, nomNodo[i]);
+        		archJsonDefinitivo = distinguirEtiquetasRepes(archJsonSinCabecera);
+        		//AQUI YA TENDREMOS NUESTRO JSON PERTINENTE PREPARADO
+        		
+        		//INICIO DE LA CONVERSION JSON-->XML
+        		JSONObject objetoJson = new JSONObject(archJsonDefinitivo);
+        		contXML = "<?xml version=\"1.0\" encoding=\"UTF-8\"?><nodoRaiz>" + org.json.XML.toString(objetoJson) + "</nodoRaiz>";
 
-    		ficheroXML = new FileWriter(archivoXML);
-	    	try (BufferedWriter out = new BufferedWriter(ficheroXML)) {
-	    	    out.write(contXML);
-	    	}
-	    	ficheroXML.close();
-			//FIN CONVERSION JSON-->XML
-    		System.out.println("Archivo " + nombreArchivos[i] + ".json convertido a " + nombreArchivos[i] + ".xml correctamente");
-    	
+        		ficheroXML = new FileWriter(archivoXML);
+    	    	try (BufferedWriter out = new BufferedWriter(ficheroXML)) {
+    	    	    out.write(contXML);
+    	    	}
+    	    	ficheroXML.close();
+    			//FIN CONVERSION JSON-->XML
+        		System.out.println("Archivo " + nombreArchivos[i] + ".json convertido a " + nombreArchivos[i] + ".xml correctamente");
+    		}
     	}
 	}
 
